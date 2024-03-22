@@ -14,5 +14,29 @@ export default {
       title: 'images of product',
       of: [{type: 'image'}],
     },
+    {
+      name: 'description',
+      type: 'text',
+      title: 'Description of product',
+    },
+    {
+      name: 'slug',
+      type: 'slug',
+      title: 'Product slug',
+      options: {
+        source: 'name',
+      },
+    },
+    {
+      name: 'price',
+      type: 'number',
+      title: 'Price',
+    },
+    {
+      name: 'category',
+      title: 'Product category',
+      type: 'reference',
+      to: [{type: 'category'}],
+    },
   ],
 }
