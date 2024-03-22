@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { client, urlFor } from "../lib/sanity";
+import Link from "next/link";
 
 async function getData() {
   const query = "*[_type=='heroImages'][0]";
@@ -8,12 +9,27 @@ async function getData() {
   return data;
 }
 
+const categories = [
+  {
+    name: "Men",
+    href: "/men",
+  },
+  {
+    name: "Women",
+    href: "/women",
+  },
+  {
+    name: "Teens",
+    href: "/teens",
+  },
+];
+
 export default async function Hero() {
   const data = await getData();
 
   return (
-    <section className=" mx-auto max-w-2xl px-4 sm:pb-6 lg:max-w-7xl  lg:px-6">
-      <div className=" mb-8 flex flex-wrap lg:flex-nowrap  justify-between md:mb-16">
+    <section className=" mx-auto max-w-2xl px-4 sm:pb-6 lg:max-w-7xl  lg:px-12">
+      <div className=" mb-8 flex flex-wrap lg:flex-nowrap md:mb-16">
         <div className=" mb-6 w-full flex flex-col justify-between lg:mb-0 sm:mb-12 lb:w-1/3 lg:pb-24 lg:pt-48">
           <h1 className="mb-4 text-4xl max-w-xl font-bold text-black sm:text-5xl md:mb-8 md:text-6xl">
             Top Fashion for to price!
@@ -28,7 +44,7 @@ export default async function Hero() {
             <Image
               src={urlFor(data.image1).url()}
               alt="hero one"
-              width={500}
+              width={400}
               height={500}
               className="w-full h-full object-cover object-center"
             />
@@ -37,11 +53,25 @@ export default async function Hero() {
             <Image
               src={urlFor(data.image2).url()}
               alt="hero one"
-              width={500}
+              width={400}
               height={500}
               className="w-full h-full object-cover object-center"
             />
           </div>
+        </div>
+      </div>
+
+      <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+        <div className=" flex h-12 w-64 overflow-hidden border rounded-lg">
+          {categories.map((category) => (
+            <Link
+              key={category.name}
+              href={category.href}
+              className=" flex w-1/3 items-center justify-center text-gray-500 transition duration-100 hover:bg-gray-100 active:bg-gray-200"
+            >
+              {category.name}
+            </Link>
+          ))}
         </div>
       </div>
     </section>
